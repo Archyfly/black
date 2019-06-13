@@ -1,9 +1,9 @@
 class Bank
 
-def 
+def bnk
 
 
-
+end
 
 
 end
