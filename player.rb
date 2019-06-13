@@ -4,7 +4,7 @@ class Player
 
   def initialize(player_name)
     @player_name = player_name
-    @player_moneys = 100
+    @moneys = 100
     @player_deck = {}
   end  
 end
