@@ -23,10 +23,25 @@ class BlackJack
     puts "Dealer start bank is: #{@dealer.moneys}"
   end
 
+  def graph
+    puts "_____________________ Game ______________"
+    puts "_[#{@player.player_name}]_current moneys:#{@player.moneys}_|_[#{@dealer.player_name}]_current moneys:#{@dealer.moneys}_"    
+    puts "_____________________ decks _____________"
+    puts "_[#{@player_deck}]_____________________|______________[#{@dealer_deck}]______________"    
+    
+    puts "________________________________"
+  end
+
   def game_process
-
+    # create deck  
     @game_deck.create_new_deck
+    graph
 
+    # 2 random cards to players
+    @player_deck << @game_deck.random_card
+    @dealer_deck << @game_deck.random_card
+    
+    graph
   end
 
   def rounds
