@@ -33,7 +33,7 @@ class BlackJack
   
   end
 
-  def graph
+  def state
     puts "|--------------- Game --------------------|"
     puts "| [#{@player.player_name}] moneys:#{@player.moneys} | [#{@dealer.player_name}] moneys:#{@dealer.moneys} |"    
     puts "|--------------- Cards on hands ----------|"
@@ -41,23 +41,34 @@ class BlackJack
     puts "-------------------------------------------"
     puts "| [#{@dealer.player_name}] has |#{@dealer_deck}| "
     puts "-------------------------------------------"     
-    
-    #puts "________________________________"
   end
 
+  def menu
+    puts "---------- game menu -----------------"
+    puts "Enter 'go' to turn in cards"
+    puts "Enter 'pass' to pass"    
+    puts "Enter 'one' to give one more cards"
+    puts "-------------------------------------------"     
+  end
+  
   def game_process
-    # create deck  
+    # create new deck for game  
     @game_deck.create_new_deck
-    graph
-    loop do
-    # 2 random cards to players
+    # state 
+    loop do # process for one game
+      next_step = gets.chomp
+      break if next_step == 'stop' # for my exit from game
+      case next_step 
+        when 'go' then turn_in_cards
+
+        when 'pass' then 1 # pass 
+        
+        when 'one' then 1 # one more cards
       
-      puts "Players getting 2 random cards..."
-      @rc = @game_deck.random_card
-      puts "rc = #{@rc}" 
-      rcval = @game_deck.deck[@rc]
-      puts "@game deck.dack = #{@game_deck.deck}"
-      puts "@game deck.deck[rc] = #{@game_deck.deck["#{@rc}"]}"
+      #puts "rc = #{@rc}" 
+      #rcval = @game_deck.deck[@rc]
+      #puts "@game deck.dack = #{@game_deck.deck}"
+      #puts "@game deck.deck[rc] = #{@game_deck.deck["#{@rc}"]}"
       
         @player_deck[@rc] = rcval
         game_deck.deck.delete(@rc) 
@@ -65,14 +76,26 @@ class BlackJack
         #@dealer_deck << @game_deck.random_card
         #@player_deck << @game_deck.random_card
         #@dealer_deck << @game_deck.random_card
-        
-      next_step = gets.chomp
-      break next_step = 'final'
+        end
+      
     end
-      graph
-    
+     # state
   end
-
+  
+  def turn_in_cards
+    puts "Players getting 2 random cards..."
+    @rc = @game_deck.random_card # def random card
+    rcval = @game_deck.deck[@rc]
+    @player_deck[@rc] = rcval
+    game_deck.deck.delete(@rc) 
+    puts "@player_deck = #{@player_deck}"
+    @rc = @game_deck.random_card # def random card
+    rcval = @game_deck.deck[@rc]
+    @dealer_deck[@rc] = rcval
+    game_deck.deck.delete(@rc) 
+    puts "@dealer_deck = #{@dealer_deck}"
+  end
+  
   def rounds
     puts "------------ Black Jack ------------"
     loop do
