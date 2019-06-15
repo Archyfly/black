@@ -1,12 +1,13 @@
 # формируем колоду
 class Cards
 
-  attr_accessor :deck, :deck_rand
+  attr_accessor :deck, :deck_rand, :points
 
   def initialize
     @deck = {}
     @game_deck = {}
     @deck_rand = []
+    
   end
 
   def create_new_deck  
@@ -40,12 +41,23 @@ class Cards
   def random_card
     
     @selected_card = @deck_rand[rand(@deck_rand.size)]
-    @deck.delete(@selected_card) 
+    #send("summ", @deck[@selected_card])
+    #@deck.delete(@selected_card) 
     
     puts @selected_card
     puts @deck[@selected_card]
-    puts @deck.size    
+    puts "Deck Size #{@deck.size}"
+ 
     #puts "deck updated. new deck #{@deck}"
     return @selected_card
+       
   end
+
+  
+
+  def summ(points)
+    puts "Points = #{points}"
+  end
+  
+
 end
