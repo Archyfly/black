@@ -1,9 +1,3 @@
 class Bank
-
-def bnk
-
-
-end
-
-
+  attr_accessor :Bank
 end

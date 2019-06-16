@@ -33,7 +33,7 @@ class Cards
     puts "New deck created, #{@deck}, #{@deck.size}"
     @deck.each_key { |key| deck_rand << key }
     # проверка создания массива карт 
-    puts "New deck_rand created, #{@deck_rand}, #{@deck_rand.size}"
+    #puts "New deck_rand created, #{@deck_rand}, #{@deck_rand.size}"
     #@game_deck = @deck
   end
 
@@ -42,11 +42,11 @@ class Cards
     
     @selected_card = @deck_rand[rand(@deck_rand.size)]
     #send("summ", @deck[@selected_card])
-    #@deck.delete(@selected_card) 
     
-    puts @selected_card
-    puts @deck[@selected_card]
-    puts "Deck Size #{@deck.size}"
+    
+    #puts @selected_card
+    #puts @deck[@selected_card]
+    #puts "Deck Size #{@deck.size}"
  
     #puts "deck updated. new deck #{@deck}"
     return @selected_card

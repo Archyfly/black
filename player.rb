@@ -7,6 +7,5 @@ class Player
     @moneys = 100
     @player_deck = {}
     @points = 0
-
   end  
 end

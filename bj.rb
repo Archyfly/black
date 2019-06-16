@@ -10,6 +10,8 @@ class BlackJack
     @player_deck = {}
     @dealer_deck = {}
     @game_deck = Cards.new
+    @round_bank = Bank.new
+
   end
 
   def player_create
@@ -33,13 +35,18 @@ class BlackJack
   
   end
 
-  def state
+  def state(game_moment)
     puts "|--------------- Game --------------------|"
+    puts "|--------------------------Moneys in bank: #{@round_bank}---|"
     puts "| [#{@player.player_name}] moneys:#{@player.moneys} | [#{@dealer.player_name}] moneys:#{@dealer.moneys} |"    
     puts "|--------------- Cards on hands ----------|"
-    puts "| [#{@player.player_name}] has |#{@player_deck}| "
+    puts "| [#{@player.player_name}] has |#{@player_deck.keys}| "
     puts "-------------------------------------------"
-    puts "| [#{@dealer.player_name}] has |#{@dealer_deck}| "
+    if game_moment == 1
+      puts "| [#{@dealer.player_name}] has |#{@dealer_deck.keys}| "
+    else
+      puts "| [#{@dealer.player_name}] has | *** *** | "
+    end      
     puts "-------------------------------------------"     
   end
 
@@ -54,24 +61,42 @@ class BlackJack
   def game_process
     # create new deck for game  
     @game_deck.create_new_deck
-    # state 
+    # view current state
+    
+    menu
+    
     loop do # process for one game
+      
       next_step = gets.chomp
       break if next_step == 'stop' # for my exit from game
-      case next_step 
-        when 'go' then turn_in_cards
-
-        when 'pass' then 1 # pass 
-        
-        when 'one' then 1 # one more cards
       
+      case next_step 
+        when 'go' then 
+          @player.moneys = 90
+          @dealer.moneys = 90
+          @round_bank = 20
+          hand_over_player # first card to player  
+          hand_over_dealer # first card to dealer
+          hand_over_player # second card to player 
+          hand_over_dealer # second card to dealer
+          state(0) # view current state (0 - game in, not visible dealer cards.  1 - open cards) 
+          points_moneys # calculate points 
+           
+        when 'pass' then 1 # pass 
+          
+        when 'one' then 
+          hand_over_player
+          state(0)
+          points_moneys # calculate points 
+        when 'test' then puts "test"
+          
       #puts "rc = #{@rc}" 
       #rcval = @game_deck.deck[@rc]
       #puts "@game deck.dack = #{@game_deck.deck}"
       #puts "@game deck.deck[rc] = #{@game_deck.deck["#{@rc}"]}"
       
-        @player_deck[@rc] = rcval
-        game_deck.deck.delete(@rc) 
+        @player_deck[@random_card] = @random_card_val
+        game_deck.deck.delete(@random_card) 
       
         #@dealer_deck << @game_deck.random_card
         #@player_deck << @game_deck.random_card
@@ -81,18 +106,40 @@ class BlackJack
     end
      # state
   end
+
+  # calculate
+  def points_moneys
+    puts "@player.points = #{@player.points}"
+    puts "@dealer.points = #{@dealer.points}"
+    
+    points = 0
+    @player_deck.each_value {|value| points = value + points }
+    @player.points = points
+    
+    points = 0
+    @dealer_deck.each_value {|value| points = value+points }
+    @dealer.points = points
+    puts "@player.points (after calculate) = #{@player.points}"
+    puts "@dealer.points (after calculate) = #{@dealer.points}"
+    
+  end
+  # hand over card to player
   
-  def turn_in_cards
-    puts "Players getting 2 random cards..."
-    @rc = @game_deck.random_card # def random card
-    rcval = @game_deck.deck[@rc]
-    @player_deck[@rc] = rcval
-    game_deck.deck.delete(@rc) 
+  def hand_over_player 
+    puts "Players getting 1 random cards..."
+    @random_card = @game_deck.random_card # def random card
+    random_card_val = @game_deck.deck[@random_card]
+    @player_deck[@random_card] = random_card_val
+    game_deck.deck.delete(@random_card) 
     puts "@player_deck = #{@player_deck}"
-    @rc = @game_deck.random_card # def random card
-    rcval = @game_deck.deck[@rc]
-    @dealer_deck[@rc] = rcval
-    game_deck.deck.delete(@rc) 
+
+  end
+
+  def hand_over_dealer
+    @random_card = @game_deck.random_card # def random card
+    random_card_val = @game_deck.deck[@random_card]
+    @dealer_deck[@random_card] = random_card_val
+    game_deck.deck.delete(@random_card) 
     puts "@dealer_deck = #{@dealer_deck}"
   end
   
