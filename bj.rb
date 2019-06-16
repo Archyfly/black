@@ -123,26 +123,33 @@ class BlackJack
     puts "@dealer.points (after calculate) = #{@dealer.points}"
     
   end
-  # hand over card to player
   
+  # hand over card to player
   def hand_over_player 
     puts "Players getting 1 random cards..."
     @random_card = @game_deck.random_card # def random card
     random_card_val = @game_deck.deck[@random_card]
-    @player_deck[@random_card] = random_card_val
+    @player_deck[@random_card] = random_card_val # to player
     game_deck.deck.delete(@random_card) 
     puts "@player_deck = #{@player_deck}"
 
   end
 
+  # hand over card to dealer
   def hand_over_dealer
     @random_card = @game_deck.random_card # def random card
     random_card_val = @game_deck.deck[@random_card]
-    @dealer_deck[@random_card] = random_card_val
+    @dealer_deck[@random_card] = random_card_val # to dealer
     game_deck.deck.delete(@random_card) 
     puts "@dealer_deck = #{@dealer_deck}"
   end
   
+  # calc for dealer
+  def calculate
+
+  end
+
+
   def rounds
     puts "------------ Black Jack ------------"
     loop do
