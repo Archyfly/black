@@ -1,9 +1,11 @@
 require_relative './player.rb'
 require_relative './cards.rb'
 require_relative './bank.rb'
+require_relative './calc.rb'
 
 class BlackJack
-
+  include CalcPoints
+  ACE = /(?i)(\W|^)(TYZ)(\W|$)/
   attr_accessor :player_deck, :dealer_deck, :game_deck
 
   def initialize
@@ -88,15 +90,19 @@ class BlackJack
           hand_over_player
           state(0)
           points_moneys # calculate points 
-        when 'test' then puts "test"
+        when 'open' then open_cards
+        
+        when 'calc' then calc_points
+        when 'aces' then aces 
           
-      #puts "rc = #{@rc}" 
-      #rcval = @game_deck.deck[@rc]
-      #puts "@game deck.dack = #{@game_deck.deck}"
-      #puts "@game deck.deck[rc] = #{@game_deck.deck["#{@rc}"]}"
+
+        #puts "rc = #{@rc}" 
+        #rcval = @game_deck.deck[@rc]
+        #puts "@game deck.dack = #{@game_deck.deck}"
+        #puts "@game deck.deck[rc] = #{@game_deck.deck["#{@rc}"]}"
       
-        @player_deck[@random_card] = @random_card_val
-        game_deck.deck.delete(@random_card) 
+        #@player_deck[@random_card] = @random_card_val
+        #game_deck.deck.delete(@random_card) 
       
         #@dealer_deck << @game_deck.random_card
         #@player_deck << @game_deck.random_card
@@ -107,22 +113,7 @@ class BlackJack
      # state
   end
 
-  # calculate
-  def points_moneys
-    puts "@player.points = #{@player.points}"
-    puts "@dealer.points = #{@dealer.points}"
-    
-    points = 0
-    @player_deck.each_value {|value| points = value + points }
-    @player.points = points
-    
-    points = 0
-    @dealer_deck.each_value {|value| points = value+points }
-    @dealer.points = points
-    puts "@player.points (after calculate) = #{@player.points}"
-    puts "@dealer.points (after calculate) = #{@dealer.points}"
-    
-  end
+ 
   
   # hand over card to player
   def hand_over_player 
