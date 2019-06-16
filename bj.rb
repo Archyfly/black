@@ -146,9 +146,28 @@ class BlackJack
   
   # calc for dealer
   def calculate
-
+    if @dealer.points < 17
+      hand_over_dealer
+    else
+      open_cards
+    end
   end
 
+  def open_cards
+    puts "Open cards"
+    state(1)
+    if @player.points > @dealer.points
+      puts "Player #{@player.player_name} WIN!"
+      @player.moneys = @player.moneys + @round_bank
+    elsif @player.points < @dealer.points
+      puts "Dealer #{@dealer.player_name} WIN!"
+      @dealer.moneys = @dealer.moneys + @round_bank
+    else @player.points == @dealer.points
+      puts "Dealer #{@dealer.player_name} and player #{@player.player_name} has equally points. Draw..."
+    end
+    @round_bank = 0   
+      
+  end
 
   def rounds
     puts "------------ Black Jack ------------"
