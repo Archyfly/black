@@ -31,7 +31,6 @@ class Cards
     end
     # проверка создания колоды
     puts "New deck created, #{@deck}, #{@deck.size}"
-    @deck.each_key { |key| deck_rand << key }
     # проверка создания массива карт 
     #puts "New deck_rand created, #{@deck_rand}, #{@deck_rand.size}"
     #@game_deck = @deck
@@ -40,10 +39,10 @@ class Cards
 # проверка рэндом выборки. Учесть, что карты отлаживаются по колодам, из основной колоды выщелкиваются
   def random_card
     
+    @deck.each_key { |key| deck_rand << key }
     @selected_card = @deck_rand[rand(@deck_rand.size)]
     #send("summ", @deck[@selected_card])
-    
-    
+     
     #puts @selected_card
     #puts @deck[@selected_card]
     #puts "Deck Size #{@deck.size}"

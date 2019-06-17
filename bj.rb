@@ -144,6 +144,7 @@ class BlackJack
     puts "Open cards"
     state(1)
     aces
+    points_moneys
     test_with_aces_dealer
     test_with_aces_player
     if @player.points > @dealer.points

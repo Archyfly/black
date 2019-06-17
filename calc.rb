@@ -15,11 +15,21 @@ module CalcPoints
     puts "@dealer.points = #{@dealer.points}"
     
     points = 0
-    @player_deck.each_value {|value| points += value }
+    @player_deck.each_value {|value| 
+      puts "pl points = #{points}"
+      puts "pl value = #{value}"
+      points += value 
+    }
     @player.points = points
     
     points = 0
-    @dealer_deck.each_value {|value| points += value }
+    @dealer_deck.each_value {|value|
+     puts "dl points = #{points}"
+      puts "dl value = #{value}"
+     points += value
+      }
+    
+
     @dealer.points = points
     puts "@player.points (after calculate) = #{@player.points}"
     puts "@dealer.points (after calculate) = #{@dealer.points}"
@@ -41,7 +51,7 @@ module CalcPoints
       puts "aces_dealer = #{@aces_dealer}"
       @dealer_points
       puts "dealer_points = #{@dealer_points}"
-    elsif @aces_dealer == 1 && @dealer_points <= 11 
+    elsif @aces_dealer == 1 && @dealer_points < 11 
       puts "aces_dealer = #{@aces_dealer}"
       hand_over_dealer
       puts "dealer_points = #{@dealer_points}"
@@ -61,7 +71,7 @@ module CalcPoints
       puts "aces_player = #{@aces_player}"
       @player_points
       puts "player_points = #{@player_points}"
-    elsif @aces_player == 1 && @player_points <= 11 
+    elsif @aces_player == 1 && @player_points < 11 
       puts "aces_player = #{@aces_player}"
       puts "player_points = #{@player_points}"
     elsif @aces_player == 2 && @player_points < 3
