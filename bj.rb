@@ -145,6 +145,7 @@ class BlackJack
     state(1)
     aces
     test_with_aces_dealer
+    test_with_aces_player
     if @player.points > @dealer.points
       puts "Player #{@player.player_name} WIN!"
       @player.moneys = @player.moneys + @round_bank

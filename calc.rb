@@ -55,6 +55,25 @@ module CalcPoints
       puts "dealer_points = #{@dealer_points}"
     end
   end  
+
+  def test_with_aces_player
+    if @aces_player == 0
+      puts "aces_player = #{@aces_player}"
+      @player_points
+      puts "player_points = #{@player_points}"
+    elsif @aces_player == 1 && @player_points <= 11 
+      puts "aces_player = #{@aces_player}"
+      puts "player_points = #{@player_points}"
+    elsif @aces_player == 2 && @player_points < 3
+      puts "aces_player = #{@aces_player}"
+      @player_points = @player_points + 10
+      puts "player_points = #{@player_points}"
+    else @aces_player > 2
+      puts "aces_player = #{@aces_player}"
+      @player_points = 21
+      puts "player_points = #{@player_points}"
+    end
+  end  
         
 
   def calc_dealer
