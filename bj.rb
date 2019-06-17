@@ -157,8 +157,8 @@ class BlackJack
       @dealer.moneys = @dealer.moneys + @round_bank
     else @player.points == @dealer.points
       puts "Dealer #{@dealer.player_name} and player #{@player.player_name} has equally points. Draw..."
-      @dealer.moneys = @round_bank/2
-      @player.moneys = @round_bank/2
+      @dealer.moneys = @dealer.moneys + @round_bank/2
+      @player.moneys = @player.moneys + @round_bank/2
     end
     @round_bank = 0   
   end

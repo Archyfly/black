@@ -38,8 +38,8 @@ class Cards
 
 # проверка рэндом выборки. Учесть, что карты отлаживаются по колодам, из основной колоды выщелкиваются
   def random_card
-    
-    @deck.each_key { |key| deck_rand << key }
+    @deck_rand = []
+    @deck.each_key { |key| @deck_rand << key }
     @selected_card = @deck_rand[rand(@deck_rand.size)]
     #send("summ", @deck[@selected_card])
      
