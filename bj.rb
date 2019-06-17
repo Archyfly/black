@@ -95,11 +95,13 @@ class BlackJack
     when 'one' then 
       hand_over_player
       state(0)
+      # dealer game - calc points for player and dealer. test dealer points, hand over card to dealer  if points < 17, else open cards
       points_moneys # calculate points 
       aces
-           
+      open_cards     
     when 'pass' then 1 # pass 
-          
+      # dealer game - calc points for player and dealer. test dealer points, hand over card to dealer  if points < 17, else open cards  
+      open_cards
     when 'open' then 
       open_cards
       points_moneys
@@ -120,7 +122,7 @@ class BlackJack
     @random_card = @game_deck.random_card # def random card
     random_card_val = @game_deck.deck[@random_card]
     @player_deck[@random_card] = random_card_val # to player
-    game_deck.deck.delete(@random_card) 
+    @game_deck.deck.delete(@random_card) 
     puts "@player_deck = #{@player_deck}"
 
   end
@@ -131,22 +133,18 @@ class BlackJack
     @random_card = @game_deck.random_card # def random card
     random_card_val = @game_deck.deck[@random_card]
     @dealer_deck[@random_card] = random_card_val # to dealer
-    game_deck.deck.delete(@random_card) 
+    @game_deck.deck.delete(@random_card) 
     puts "@dealer_deck = #{@dealer_deck}"
   end
   
   # calc for dealer
-  def calculate
-    if @dealer.points < 17
-      hand_over_dealer
-    else
-      open_cards
-    end
-  end
+  
 
   def open_cards
     puts "Open cards"
     state(1)
+    aces
+    test_with_aces_dealer
     if @player.points > @dealer.points
       puts "Player #{@player.player_name} WIN!"
       @player.moneys = @player.moneys + @round_bank

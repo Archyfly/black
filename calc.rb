@@ -23,7 +23,7 @@ module CalcPoints
     @dealer.points = points
     puts "@player.points (after calculate) = #{@player.points}"
     puts "@dealer.points (after calculate) = #{@dealer.points}"
-    self.aces
+    
   end
 
   def aces
@@ -34,6 +34,35 @@ module CalcPoints
           
     puts "@aces_player =  #{@aces_player}"
     puts "@aces_dealer =  #{@aces_dealer}"
+  end
+
+  def test_with_aces_dealer
+    if @aces_dealer == 0
+      puts "aces_dealer = #{@aces_dealer}"
+      @dealer_points
+      puts "dealer_points = #{@dealer_points}"
+    elsif @aces_dealer == 1 && @dealer_points <= 11 
+      puts "aces_dealer = #{@aces_dealer}"
+      hand_over_dealer
+      puts "dealer_points = #{@dealer_points}"
+    elsif @aces_dealer == 2 && @dealer_points < 3
+      puts "aces_dealer = #{@aces_dealer}"
+      @dealer_points = @dealer_points + 10
+      puts "dealer_points = #{@dealer_points}"
+    else @aces_dealer > 2
+      puts "aces_dealer = #{@aces_dealer}"
+      @dealer_points = 21
+      puts "dealer_points = #{@dealer_points}"
+    end
+  end  
+        
+
+  def calc_dealer
+    if @dealer.points < 17
+      hand_over_dealer
+    else
+      open_cards
+    end
   end
 
 end
