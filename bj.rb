@@ -53,71 +53,66 @@ class BlackJack
   end
 
   def menu
-    puts "---------- game menu -----------------"
-    puts "Enter 'go' to turn in cards"
-    puts "Enter 'pass' to pass"    
+    puts "--- What is your next step ? ------"
     puts "Enter 'one' to give one more cards"
+    puts "Enter 'pass' to pass"
+    puts "Enter 'open' to open cards"
     puts "-------------------------------------------"     
   end
   
-  def game_process
-    # create new deck for game  
+  # RESET for one round
+  def game_init
+    state(0)
     @game_deck.create_new_deck
-    # view current state
-    
-    menu
-    
-    loop do # process for one game
-      
-      next_step = gets.chomp
-      break if next_step == 'stop' # for my exit from game
-      
-      case next_step 
-        when 'go' then 
-          @player.moneys = 90
-          @dealer.moneys = 90
-          @round_bank = 20
-          hand_over_player # first card to player  
-          hand_over_dealer # first card to dealer
-          hand_over_player # second card to player 
-          hand_over_dealer # second card to dealer
-          state(0) # view current state (0 - game in, not visible dealer cards.  1 - open cards) 
-          points_moneys # calculate points 
-           
-        when 'pass' then 1 # pass 
-          
-        when 'one' then 
-          hand_over_player
-          state(0)
-          points_moneys # calculate points 
-        when 'open' then open_cards
-        
-        when 'calc' then calc_points
-        when 'aces' then aces 
-          
-
-        #puts "rc = #{@rc}" 
-        #rcval = @game_deck.deck[@rc]
-        #puts "@game deck.dack = #{@game_deck.deck}"
-        #puts "@game deck.deck[rc] = #{@game_deck.deck["#{@rc}"]}"
-      
-        #@player_deck[@random_card] = @random_card_val
-        #game_deck.deck.delete(@random_card) 
-      
-        #@dealer_deck << @game_deck.random_card
-        #@player_deck << @game_deck.random_card
-        #@dealer_deck << @game_deck.random_card
-        end
-      
-    end
-     # state
+    @player_deck = {}
+    @dealer_deck = {}
+    @player.points = 0
+    @dealer.points = 0
   end
 
- 
+
+  def game_process
+  # create new deck for game  
+  game_init
+  # withdraw 10
+  @player.moneys = @player.moneys - 10
+  @dealer.moneys = @dealer.moneys - 10
+  @round_bank = 20
+    
+  hand_over_player # first card to player  
+  hand_over_dealer # first card to dealer
+  hand_over_player # second card to player 
+  hand_over_dealer # second card to dealer
+  
+  # view current state (0 - game in, not visible dealer cards.  1 - open cards) 
+  state(0) 
+  
+  # process for one game
+  # show menu for player next step    
+  menu
+  next_step = gets.chomp
+  case next_step 
+    when 'one' then 
+      hand_over_player
+      state(0)
+      points_moneys # calculate points 
+           
+    when 'pass' then 1 # pass 
+          
+    when 'open' then open_cards
+    
+    end
+  puts "Next round ? (y/n)"
+  next_round = gets.chomp
+  case next_round 
+    when 'yes' then game_process 
+    when 'no' then rounds
+    end
+  end
   
   # hand over card to player
   def hand_over_player 
-    puts "Players getting 1 random cards..."
+    puts "Player getting 1 random card..."
     @random_card = @game_deck.random_card # def random card
     random_card_val = @game_deck.deck[@random_card]
     @player_deck[@random_card] = random_card_val # to player
@@ -128,6 +123,7 @@ class BlackJack
 
   # hand over card to dealer
   def hand_over_dealer
+    puts "Dealer getting 1 random card..."
     @random_card = @game_deck.random_card # def random card
     random_card_val = @game_deck.deck[@random_card]
     @dealer_deck[@random_card] = random_card_val # to dealer
@@ -157,7 +153,6 @@ class BlackJack
       puts "Dealer #{@dealer.player_name} and player #{@player.player_name} has equally points. Draw..."
     end
     @round_bank = 0   
-      
   end
 
   def rounds
@@ -176,10 +171,6 @@ class BlackJack
      end
     end
   end
-
-
-
-
 
 end
 
