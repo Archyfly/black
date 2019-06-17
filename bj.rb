@@ -96,13 +96,17 @@ class BlackJack
       hand_over_player
       state(0)
       points_moneys # calculate points 
+      aces
            
     when 'pass' then 1 # pass 
           
-    when 'open' then open_cards
-    
+    when 'open' then 
+      open_cards
+      points_moneys
+      aces
     end
-  puts "Next round ? (y/n)"
+
+  puts "Next round ? (yes/no)"
   next_round = gets.chomp
   case next_round 
     when 'yes' then game_process 

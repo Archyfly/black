@@ -15,15 +15,15 @@ module CalcPoints
     puts "@dealer.points = #{@dealer.points}"
     
     points = 0
-    @player_deck.each_value {|value| points = value + points }
+    @player_deck.each_value {|value| points += value }
     @player.points = points
     
     points = 0
-    @dealer_deck.each_value {|value| points = value+points }
+    @dealer_deck.each_value {|value| points += value }
     @dealer.points = points
     puts "@player.points (after calculate) = #{@player.points}"
     puts "@dealer.points (after calculate) = #{@dealer.points}"
-    
+    self.aces
   end
 
   def aces
