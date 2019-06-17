@@ -149,14 +149,16 @@ class BlackJack
     test_with_aces_player
     calc_dealer
     points_moneys
-    if @player.points > @dealer.points
+    if @player.points > @dealer.points && @player.points < 22 
       puts "Player #{@player.player_name} WIN!"
       @player.moneys = @player.moneys + @round_bank
-    elsif @player.points < @dealer.points
+    elsif @player.points < @dealer.points && @dealer.points < 22
       puts "Dealer #{@dealer.player_name} WIN!"
       @dealer.moneys = @dealer.moneys + @round_bank
     else @player.points == @dealer.points
       puts "Dealer #{@dealer.player_name} and player #{@player.player_name} has equally points. Draw..."
+      @dealer.moneys = @round_bank/2
+      @player.moneys = @round_bank/2
     end
     @round_bank = 0   
   end
