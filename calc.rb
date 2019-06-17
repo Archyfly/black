@@ -49,39 +49,39 @@ module CalcPoints
   def test_with_aces_dealer
     if @aces_dealer == 0
       puts "aces_dealer = #{@aces_dealer}"
-      @dealer_points
-      puts "dealer_points = #{@dealer_points}"
-    elsif @aces_dealer == 1 && @dealer_points < 11 
+      @dealer.points
+      puts "dealer_points = #{@dealer.points}"
+    elsif @aces_dealer == 1 && @dealer.points < 12
       puts "aces_dealer = #{@aces_dealer}"
-      hand_over_dealer
-      puts "dealer_points = #{@dealer_points}"
-    elsif @aces_dealer == 2 && @dealer_points < 3
+      @dealer.points = @dealer.points + 10
+      puts "dealer_points = #{@dealer.points}"
+    elsif @aces_dealer == 2 && @dealer.points < 3
       puts "aces_dealer = #{@aces_dealer}"
-      @dealer_points = @dealer_points + 10
-      puts "dealer_points = #{@dealer_points}"
+      @dealer.points = @dealer.points + 10
+      puts "dealer_points = #{@dealer.points}"
     else @aces_dealer > 2
       puts "aces_dealer = #{@aces_dealer}"
-      @dealer_points = 21
-      puts "dealer_points = #{@dealer_points}"
+      @dealer.points = 21
+      puts "dealer_points = #{@dealer.points}"
     end
   end  
 
   def test_with_aces_player
     if @aces_player == 0
       puts "aces_player = #{@aces_player}"
-      @player_points
-      puts "player_points = #{@player_points}"
-    elsif @aces_player == 1 && @player_points < 11 
+      @player.points
+      puts "player_points = #{@player.points}"
+    elsif @aces_player == 1 && @player.points < 12 #??????????? 
       puts "aces_player = #{@aces_player}"
-      puts "player_points = #{@player_points}"
-    elsif @aces_player == 2 && @player_points < 3
+      puts "player_points = #{@player.points}"
+    elsif @aces_player == 2 && @player.points < 3
       puts "aces_player = #{@aces_player}"
-      @player_points = @player_points + 10
-      puts "player_points = #{@player_points}"
+      @player.points = @player.points + 10
+      puts "player_points = #{@player.points}"
     else @aces_player > 2
       puts "aces_player = #{@aces_player}"
-      @player_points = 21
-      puts "player_points = #{@player_points}"
+      @player.points = 21
+      puts "player_points = #{@player.points}"
     end
   end  
         
